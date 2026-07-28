@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>วันนี้กินไรดี — สุ่มเมนูอาหาร</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">มื้อนี้เอาไงดี</p>
+    <h1>วันนี้กินไรดี</h1>
+    <p class="sub">เลือกตัวกรอง แล้วให้เราสุ่มเมนูให้ตัดสินใจแทน</p>
+    <p class="count-note" id="countNote">กำลังโหลดฐานข้อมูลเมนู...</p>
+  </header>
+
+  <div class="ticket">
+    <p class="field-label"><span class="num">1</span>🍚 ประเภทอาหาร <span class="field-hint">เลือกได้หลายอย่าง</span></p>
+    <div class="chip-row" id="catRow">
+      <button class="chip cat" data-cat="ข้าว">ข้าว</button>
+      <button class="chip cat" data-cat="เส้น">เส้น</button>
+      <button class="chip cat" data-cat="กับข้าว">กับข้าว</button>
+      <button class="chip cat" data-cat="อาหารจานเดียว">อาหารจานเดียว</button>
+      <button class="chip cat" data-cat="ของกินเล่น">ของกินเล่น</button>
+      <button class="chip cat" data-cat="ของหวาน">ของหวาน</button>
+      <button class="chip cat" data-cat="เครื่องดื่ม">เครื่องดื่ม</button>
+    </div>
+
+    <p class="field-label"><span class="num">2</span>🌶️ รสชาติ <span class="field-hint">เลือกได้หลายอย่าง</span></p>
+    <div class="chip-row" id="tasteRow">
+      <button class="chip taste" data-taste="เผ็ด">เผ็ด</button>
+      <button class="chip taste" data-taste="ไม่เผ็ด">ไม่เผ็ด</button>
+      <button class="chip taste" data-taste="เปรี้ยว">เปรี้ยว</button>
+      <button class="chip taste" data-taste="หวาน">หวาน</button>
+      <button class="chip taste" data-taste="เค็ม">เค็ม</button>
+      <button class="chip taste" data-taste="มัน/กะทิ">มัน/กะทิ</button>
+      <button class="chip taste" data-taste="กลมกล่อม">กลมกล่อม</button>
+    </div>
+
+    <p class="field-label"><span class="num">3</span>🥩 วัตถุดิบหลัก <span class="field-hint">เลือกได้หลายอย่าง</span></p>
+    <div class="chip-row" id="ingRow">
+      <button class="chip ing" data-ing="หมู">หมู</button>
+      <button class="chip ing" data-ing="ไก่">ไก่</button>
+      <button class="chip ing" data-ing="เนื้อวัว">เนื้อวัว</button>
+      <button class="chip ing" data-ing="ปลา">ปลา</button>
+      <button class="chip ing" data-ing="กุ้ง">กุ้ง</button>
+      <button class="chip ing" data-ing="ปลาหมึก">ปลาหมึก</button>
+      <button class="chip ing" data-ing="ปู">ปู</button>
+      <button class="chip ing" data-ing="หอย">หอย</button>
+      <button class="chip ing" data-ing="ไข่">ไข่</button>
+      <button class="chip ing" data-ing="เต้าหู้">เต้าหู้</button>
+      <button class="chip ing" data-ing="ผัก">ผัก</button>
+    </div>
+
+    <p class="field-label"><span class="num">4</span>💰 งบประมาณ <span class="field-hint">เลือกได้หลายอย่าง</span></p>
+    <div class="chip-row" id="budgetRow">
+      <button class="chip budget" data-budget="1">ต่ำกว่า 50 บาท</button>
+      <button class="chip budget" data-budget="2">50–100 บาท</button>
+      <button class="chip budget" data-budget="3">100–200 บาท</button>
+      <button class="chip budget" data-budget="4">มากกว่า 200 บาท</button>
+    </div>
+
+    <button class="roll-btn" id="rollBtn" disabled>🎲 สุ่มเมนู!</button>
+    <p class="empty-msg" id="emptyMsg">ไม่มีเมนูตรงกับตัวกรองนี้เลย ลองปรับตัวกรองดูนะ</p>
+  </div>
+
+  <div class="result" id="resultCard">
+    <button class="fav-btn" id="favBtn" aria-label="บันทึกเป็นเมนูโปรด" title="บันทึกเป็นเมนูโปรด">🤍</button>
+    <div class="tag-row">
+      <span class="cat-tag" id="resCat">ข้าว</span>
+      <span class="budget-tag" id="resBudget">50–100 บาท</span>
+    </div>
+    <div class="img-frame" id="imgFrame">
+      <span class="emoji-fallback" id="emojiFallback">🍜</span>
+      <img id="dishImg" alt="" style="display:none;">
+    </div>
+    <h2 class="dish-name" id="dishName">-</h2>
+    <p class="dish-desc" id="dishDesc"></p>
+    <div class="taste-tags" id="tasteTags"></div>
+
+    <div class="rate-block">
+      <p class="rate-label">ถูกใจเมนูนี้แค่ไหน?</p>
+      <div class="stars" id="stars">
+        <button class="star-btn" data-v="1">★</button>
+        <button class="star-btn" data-v="2">★</button>
+        <button class="star-btn" data-v="3">★</button>
+        <button class="star-btn" data-v="4">★</button>
+        <button class="star-btn" data-v="5">★</button>
+      </div>
+      <p class="rate-msg" id="rateMsg"></p>
+    </div>
+
+    <div class="action-row">
+      <button class="roll-btn secondary" id="rerollBtn">🔁 สุ่มใหม่</button>
+      <button class="roll-btn secondary" id="excludeBtn">🚫 ไม่เอาเมนูนี้</button>
+    </div>
+  </div>
+
+  <!--
+    ===== พื้นที่โฆษณา Google AdSense =====
+    วิธีใช้งานจริง:
+    1. สมัครและได้รับอนุมัติบัญชี Google AdSense
+    2. แทนที่ ca-pub-XXXXXXXXXXXXXXXX ด้วยรหัส publisher ID ของคุณ (ทั้ง 2 จุดด้านล่าง)
+    3. แทนที่ data-ad-slot ด้วยรหัสของหน่วยโฆษณาที่คุณสร้างไว้ในระบบ AdSense
+    4. ระหว่างที่ยังไม่ได้อนุมัติ/ยังไม่ใส่รหัสจริง ส่วนนี้จะไม่แสดงผลใดๆ (ไม่ error)
+  -->
+  <div class="ad-slot">
+    <p class="ad-label">ADVERTISEMENT</p>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="XXXXXXXXXX"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+    <script>
+     try{ (adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
+    </script>
+  </div>
+
+  <footer>ทำด้วยความหิว 🍚 · ฐานข้อมูล 500 เมนู</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
