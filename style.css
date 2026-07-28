@@ -1,0 +1,318 @@
+/* =========================================================
+   วันนี้กินไรดี — style.css
+   ธีม: Chalkboard + Kraft Paper (คงดีไซน์เดิมไว้ทั้งหมด)
+   ========================================================= */
+
+:root{
+  --board:#1f2b22;       /* chalkboard shell */
+  --paper:#ecdcae;       /* kraft ticket paper */
+  --ink:#241d15;         /* ink black-brown */
+  --chili:#c5402a;       /* stamp red */
+  --chili-dark:#a3311e;
+  --turmeric:#e0a233;    /* gold accent */
+  --herb:#5c7a4e;        /* frame green */
+  --paper-shadow: 0 18px 40px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+
+body{
+  background:
+    radial-gradient(circle at 15% 10%, rgba(224,162,51,.08), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(197,64,42,.10), transparent 45%),
+    var(--board);
+  color:var(--ink);
+  font-family:'Sarabun',sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 60px;
+}
+
+.wrap{width:100%;max-width:640px;}
+
+/* ---------- Header ---------- */
+header{text-align:center;margin-bottom:22px;}
+.eyebrow{
+  font-family:'Kanit',sans-serif;
+  font-size:13px;
+  letter-spacing:.12em;
+  color:var(--turmeric);
+  font-weight:600;
+  margin-bottom:6px;
+}
+h1{
+  font-family:'Kanit',sans-serif;
+  font-weight:800;
+  color:var(--paper);
+  font-size:clamp(32px,7vw,46px);
+  margin:0 0 8px;
+  line-height:1.1;
+  text-shadow:2px 2px 0 rgba(0,0,0,.25);
+}
+.sub{color:#cfd8c8;font-size:15px;margin:0;}
+.count-note{color:#9aa695;font-size:12.5px;margin-top:6px;}
+
+/* ---------- Filter ticket ---------- */
+.ticket{
+  background:var(--paper);
+  border-radius:14px;
+  box-shadow:var(--paper-shadow);
+  padding:22px 20px;
+  position:relative;
+  margin-bottom:18px;
+  border:2px dashed rgba(36,29,21,.18);
+}
+.ticket::before, .ticket::after{
+  content:"";
+  position:absolute;
+  width:22px;height:22px;
+  background:var(--board);
+  border-radius:50%;
+  top:50%;transform:translateY(-50%);
+}
+.ticket::before{left:-12px;}
+.ticket::after{right:-12px;}
+
+.field-label{
+  font-family:'Kanit',sans-serif;
+  font-weight:600;
+  font-size:14px;
+  color:var(--chili-dark);
+  margin:0 0 10px;
+  display:flex;align-items:center;gap:8px;
+}
+.field-label:not(:first-child){margin-top:18px;}
+.field-label .num{
+  background:var(--chili);color:#fff;
+  width:20px;height:20px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;
+  flex-shrink:0;
+}
+.field-hint{
+  font-family:'Sarabun',sans-serif;
+  font-weight:400;
+  font-size:12px;
+  color:#8a7c5f;
+  margin-left:auto;
+}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{
+  font-family:'Kanit',sans-serif;
+  font-size:13.5px;
+  font-weight:600;
+  padding:8px 15px;
+  border-radius:999px;
+  border:2px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  transition:transform .12s ease, background .15s ease, color .15s ease;
+}
+.chip:hover{transform:translateY(-1px);}
+.chip:focus-visible{outline:3px solid var(--turmeric);outline-offset:2px;}
+.chip.active{background:var(--ink);color:var(--paper);}
+.chip.taste.active{background:var(--chili);border-color:var(--chili);color:#fff;}
+.chip.ing.active{background:var(--herb);border-color:var(--herb);color:#fff;}
+.chip.budget.active{background:var(--turmeric);border-color:var(--turmeric);color:#3a2a06;}
+
+.roll-btn{
+  width:100%;
+  margin-top:22px;
+  font-family:'Kanit',sans-serif;
+  font-weight:700;
+  font-size:19px;
+  letter-spacing:.02em;
+  color:#fff;
+  background:linear-gradient(180deg, var(--chili), var(--chili-dark));
+  border:none;
+  border-radius:12px;
+  padding:16px;
+  cursor:pointer;
+  box-shadow:0 6px 0 #7d2314, 0 10px 20px rgba(0,0,0,.25);
+  transition:transform .08s ease, box-shadow .08s ease;
+}
+.roll-btn:active{transform:translateY(6px);box-shadow:0 0 0 #7d2314, 0 4px 10px rgba(0,0,0,.2);}
+.roll-btn:focus-visible{outline:3px solid var(--turmeric);outline-offset:3px;}
+.roll-btn:disabled{opacity:.7;cursor:default;}
+
+.roll-btn.secondary{
+  background:linear-gradient(180deg,#33452f, var(--board));
+  box-shadow:0 6px 0 #10160e, 0 10px 20px rgba(0,0,0,.25);
+  color:var(--paper);
+}
+.roll-btn.secondary:active{box-shadow:0 0 0 #10160e, 0 4px 10px rgba(0,0,0,.2);}
+
+.action-row{display:flex;gap:10px;margin-top:10px;}
+.action-row .roll-btn{margin-top:0;flex:1;font-size:15px;padding:13px;}
+
+/* ---------- Result ticket ---------- */
+.result{
+  background:var(--paper);
+  border-radius:14px;
+  box-shadow:var(--paper-shadow);
+  padding:24px 22px;
+  text-align:center;
+  display:none;
+  border:2px solid rgba(36,29,21,.15);
+  position:relative;
+}
+.result.show{display:block;animation:stamp .38s cubic-bezier(.2,1.4,.4,1);}
+@keyframes stamp{
+  0%{transform:scale(.85) rotate(-3deg);opacity:0;}
+  60%{transform:scale(1.04) rotate(1deg);opacity:1;}
+  100%{transform:scale(1) rotate(0);}
+}
+@media (prefers-reduced-motion: reduce){
+  .result.show{animation:none;}
+}
+
+.fav-btn{
+  position:absolute;
+  top:16px; right:16px;
+  background:none;
+  border:none;
+  font-size:26px;
+  cursor:pointer;
+  line-height:1;
+  color:#cbbf9d;
+  transition:transform .12s ease, color .15s ease;
+}
+.fav-btn:hover{transform:scale(1.15);}
+.fav-btn:focus-visible{outline:3px solid var(--turmeric);border-radius:6px;}
+.fav-btn.on{color:var(--chili);}
+
+.tag-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+.cat-tag, .budget-tag{
+  display:inline-block;
+  font-family:'Kanit',sans-serif;
+  font-size:12px;font-weight:700;
+  border-radius:999px;
+  padding:3px 12px;
+}
+.cat-tag{color:var(--herb);border:1.5px solid var(--herb);}
+.budget-tag{color:var(--chili-dark);border:1.5px solid var(--chili-dark);}
+
+.img-frame{
+  width:100%;
+  aspect-ratio:4/3;
+  border-radius:10px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#f4e6c1,#e5cf9c);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;
+  position:relative;
+}
+.img-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-frame .emoji-fallback{font-size:64px;}
+
+.dish-name{
+  font-family:'Kanit',sans-serif;
+  font-weight:800;
+  font-size:clamp(22px,5vw,30px);
+  color:var(--ink);
+  margin:4px 0 8px;
+}
+.dish-desc{
+  font-size:14px;
+  line-height:1.6;
+  color:#6b5f4a;
+  margin:0 0 14px;
+  font-style:italic;
+}
+.taste-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+.taste-pill{
+  font-size:12.5px;
+  font-family:'Kanit',sans-serif;
+  font-weight:600;
+  background:var(--turmeric);
+  color:#3a2a06;
+  padding:4px 11px;
+  border-radius:999px;
+}
+.ing-pill{
+  font-size:12.5px;
+  font-family:'Kanit',sans-serif;
+  font-weight:600;
+  background:var(--herb);
+  color:#fff;
+  padding:4px 11px;
+  border-radius:999px;
+}
+
+.rate-block{border-top:2px dashed rgba(36,29,21,.2);padding-top:16px;margin-bottom:16px;}
+.rate-label{
+  font-family:'Kanit',sans-serif;
+  font-size:14px;font-weight:600;
+  margin-bottom:8px;color:var(--chili-dark);
+}
+.stars{font-size:0;}
+.star-btn{
+  font-size:30px;
+  background:none;border:none;cursor:pointer;
+  color:#cbbf9d;
+  padding:2px 3px;
+  transition:transform .1s ease, color .15s ease;
+  line-height:1;
+}
+.star-btn:hover{transform:scale(1.15);}
+.star-btn:focus-visible{outline:3px solid var(--turmeric);border-radius:6px;}
+.star-btn.on{color:var(--chili);}
+.rate-msg{
+  font-size:13.5px;color:#5c503e;margin-top:8px;min-height:18px;
+}
+
+.empty-msg{
+  font-family:'Kanit',sans-serif;
+  color:var(--chili-dark);
+  text-align:center;
+  font-size:14px;
+  margin-top:12px;
+  display:none;
+}
+
+.loading-msg{
+  font-family:'Kanit',sans-serif;
+  color:var(--paper);
+  text-align:center;
+  font-size:14px;
+  opacity:.8;
+}
+
+/* ---------- Ad slot ---------- */
+.ad-slot{
+  margin-top:26px;
+  padding:14px;
+  border:1.5px dashed rgba(236,220,174,.4);
+  border-radius:10px;
+  text-align:center;
+}
+.ad-slot .ad-label{
+  font-family:'Kanit',sans-serif;
+  font-size:11px;
+  letter-spacing:.1em;
+  color:#9aa695;
+  margin-bottom:8px;
+}
+
+footer{
+  margin-top:30px;
+  text-align:center;
+  color:#7d8a76;
+  font-size:12.5px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px){
+  .ticket, .result{padding:18px 16px;}
+  .chip{font-size:12.5px;padding:7px 13px;}
+  .action-row{flex-direction:column;}
+}
+
+@media (min-width: 900px){
+  .wrap{max-width:720px;}
+}
